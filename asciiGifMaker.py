@@ -4,9 +4,13 @@ import os
 from time import sleep
 from PIL import Image
 from PIL import ImageEnhance
-filename = "shark" 
+filename = raw_input("Enter the path to gif: ")
 density = 3
-pic = Image.open(filename)
+try:
+    pic = Image.open(filename)
+except:
+    print("File does not exsist :(")
+    quit()
 everything = []
 while 1:
     try:
@@ -73,13 +77,20 @@ for frame in everything:
 cropWidth = 1920 - rows * 13
 cropHeight = 1080 - len(everything) * 21
 createGif = raw_input("Do you intend to make into a gif? [y/n]: ")
-for frame in range(len(allFrames)):
-    print(allFrames[frame])
-    sleep(0.04)
-    if createGif.lower() == "y" or createGif.lower().startswith("yes"):
-        os.system("import -window root -crop 1920x1080-" + str(cropWidth) + "-" + str(cropHeight) + " frames/frame" + str(frame) + ".png")
-    os.system("clear")
+
 if createGif.lower() == "y" or createGif.lower().startswith("yes"):
+    for frame in range(len(allFrames)):
+        print(allFrames[frame])
+        sleep(0.04)
+        os.system("import -window root -crop 1920x1080-" + str(cropWidth) + "-" + str(cropHeight) + " frames/frame" + str(frame) + ".png")
+        os.system("clear")
     splice.makeGif()
 
-
+else:
+    while True:
+        for frame in range(len(allFrames)):
+            print(allFrames[frame])
+            print("\n[Ctrl+C] to quit")
+            sleep(0.09)
+            os.system("clear")
+	
